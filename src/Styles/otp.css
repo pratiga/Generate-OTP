@@ -1,0 +1,50 @@
+body {
+  display: flex;
+  justify-content: center;
+  height: 800px;
+  background-image: url("https://i.pinimg.com/originals/c8/67/3a/c8673ad4c46ade00cf3bd0049db62b16.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-blend-mode: darken;
+}
+.otp-page {
+  margin-top: 4rem;
+}
+.title {
+  font-size: 35px;
+  color: rgb(31, 67, 78);
+  text-transform: uppercase;
+}
+.container {
+  background-color: rgb(31, 67, 78);
+  color: aliceblue;
+  background-blend-mode: darken;
+  opacity: 1;
+  height: 500px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  padding: 6rem 2rem 0;
+}
+.form span {
+  font-size: 22px;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  background: rgb(52, 145, 182);
+  padding: 1rem 2rem 1.4rem 2rem;
+  margin-right: -2rem;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+.details{
+  position: relative;
+}
+.copy{
+  position: absolute;
+  top: 2.5rem;
+  right: 2.5rem;
+  opacity: 1;
+  color: rgb(28, 24, 24);
+}
