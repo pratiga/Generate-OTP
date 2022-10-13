@@ -24,15 +24,24 @@
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+input{
+  padding: 1.5rem 4rem;
+  margin: 2rem 0rem 2rem 2rem;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+button{
+  padding: 1.5rem 3rem;
+  background: rgb(101, 160, 198);
+  color: aliceblue;
+  border: none;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+textarea{
+  padding: 3rem;
+  margin: 2rem;
+}
+button:hover{
+  cursor: pointer;
+  background: rgb(167, 230, 241);
+  color: #282c34;
 }
