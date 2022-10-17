@@ -1,11 +1,15 @@
-import React, { useState } from "react";
+/* eslint-disable no-template-curly-in-string */
+/* eslint-disable react-hooks/rules-of-hooks */
+import React, { useState, useEffect } from "react";
 import copy from "copy-to-clipboard";
 import "../Styles/otp.css";
-import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import axios from "axios";
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 const otp = () => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [copyText, setCopyText] = useState("");
-
+  const [ttls, setTtls] = useState([]);
+  const [ttl, setTtl] = useState("");
   const handleCopyText = (e) => {
     setCopyText(e.target.value);
   };
@@ -14,6 +18,36 @@ const otp = () => {
     copy(copyText);
     //  alert(`You have copied "${copyText}"`);
   };
+  let content = null;
+  let handleGenerate = (e) => {
+    e.preventDefault();
+
+    axios
+      .post("https://otp-jwt-api.herokuapp.com/api/otp/create?ttl=", {
+        ttl: ttl,
+      })
+      .then((res) => {
+        console.log(res.data);
+        setTtls((ttls) => [res.data, ...ttls]);
+        setTtl("");
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
+ 
+   useEffect(() => {
+     axios
+       .get("https://otp-jwt-api.herokuapp.com/api/otp/create?ttl=${ttl}")
+       .then((res) => {
+         console.log(res.data)
+         setTtls(res.data);
+       })
+       .catch((err) => {
+         console.log(err);
+       })
+   }, []);
+
   return (
     <div className="otp-page">
       <div className="title">
@@ -22,20 +56,27 @@ const otp = () => {
       <div className="container">
         <div className="row">
           <div className="ttl">
-            <form className="form">
+            <form className="form" onSubmit={handleGenerate}>
               <span>TTL</span>
-              <input type="number" placeholder="30 sec" value="ttl" />
+              <input
+                type="number"
+                placeholder=""
+                onChange={(e) => setTtl(e.target.value)}
+                value={ttl}
+              />
               <button className="btn from-left">Generate</button>
             </form>
           </div>
-          <div className="otp">
+          {/* <div className="otp">
             <form className="form">
               <span>OTP</span>
-              <input type="text" placeholder="enter otp" value="otp" />
+              <input type="text" placeholder="iiii" value="otp" />
               <button className="btn from-left">Verify</button>
             </form>
-          </div>
+          </div> */}
         </div>
+       
+
         <div className="details">
           <form>
             <textarea
@@ -44,11 +85,13 @@ const otp = () => {
               cols="33"
               value={copyText}
               onChange={handleCopyText}
-              placeholder=" place the details...."
+            // placeholder={ttls.data}
             >
-              place the details....
+              {ttls.data}
             </textarea>
-            <span className="copy" onClick={copyToClipboard}><ContentCopyIcon/></span>
+            <span className="copy" onClick={copyToClipboard}>
+              <ContentCopyIcon />
+            </span>
           </form>
         </div>
       </div>
