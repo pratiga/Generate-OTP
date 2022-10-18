@@ -1,24 +1,25 @@
 /* eslint-disable no-template-curly-in-string */
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import copy from "copy-to-clipboard";
 import "../Styles/otp.css";
 import axios from "axios";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 const otp = () => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  const [copyText, setCopyText] = useState("");
-  const [ttls, setTtls] = useState([]);
   const [ttl, setTtl] = useState("");
+  const [otp, setOtp] = useState("");
+  const [verify, setVerify] = useState("");
+
   const handleCopyText = (e) => {
-    setCopyText(e.target.value);
+    setOtp(e.target.value);
   };
 
   const copyToClipboard = () => {
-    copy(copyText);
-    //  alert(`You have copied "${copyText}"`);
+    copy(otp);
+    alert(`You have copied "${otp}"`);
   };
-  let content = null;
+
   let handleGenerate = (e) => {
     e.preventDefault();
 
@@ -27,26 +28,29 @@ const otp = () => {
         ttl: ttl,
       })
       .then((res) => {
-        console.log(res.data);
-        setTtls((ttls) => [res.data, ...ttls]);
-        setTtl("");
+        // console.log(res.data);
+        setTtl(res.data);
+        setOtp(res.data);
       })
       .catch((err) => {
         console.log(err.message);
       });
   };
- 
-   useEffect(() => {
-     axios
-       .get("https://otp-jwt-api.herokuapp.com/api/otp/create?ttl=${ttl}")
-       .then((res) => {
-         console.log(res.data)
-         setTtls(res.data);
-       })
-       .catch((err) => {
-         console.log(err);
-       })
-   }, []);
+
+  let handleOtp = (e) => {
+    e.preventDefault();
+    axios
+      .post("https://otp-jwt-api.herokuapp.com/api/otp/verify", {
+        otp: verify,
+      })
+      .then((res) => {
+        console.log(res.data);
+        setVerify(res.data);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
 
   return (
     <div className="otp-page">
@@ -67,15 +71,18 @@ const otp = () => {
               <button className="btn from-left">Generate</button>
             </form>
           </div>
-          {/* <div className="otp">
-            <form className="form">
+          <div className="otp">
+            <form className="form" onSubmit={handleOtp}>
               <span>OTP</span>
-              <input type="text" placeholder="iiii" value="otp" />
+              <input
+                type="text"
+                value={verify}
+                onChange={(e) => setVerify(e.target.value)}
+              />
               <button className="btn from-left">Verify</button>
             </form>
-          </div> */}
+          </div>
         </div>
-       
 
         <div className="details">
           <form>
@@ -83,16 +90,18 @@ const otp = () => {
               name=""
               rows="5"
               cols="33"
-              value={copyText}
+              value={otp}
               onChange={handleCopyText}
-            // placeholder={ttls.data}
             >
-              {ttls.data}
+              {otp}
             </textarea>
             <span className="copy" onClick={copyToClipboard}>
               <ContentCopyIcon />
             </span>
           </form>
+          <div className="box-verify">
+            <p>{verify.data}data</p>
+          </div>
         </div>
       </div>
     </div>
