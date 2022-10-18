@@ -33,18 +33,29 @@ body {
   text-transform: uppercase;
   letter-spacing: 5px;
   background: rgb(52, 145, 182);
-  padding: 1rem 2rem 1.4rem 2rem;
+  padding: 1rem 2.5rem 1.4rem 2rem;
   margin-right: -2rem;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
 }
 .details{
   position: relative;
+  padding: 0rem 1rem;
 }
 .copy{
   position: absolute;
   top: 2.5rem;
-  right: 2.5rem;
+  right: 3.5rem;
   opacity: 1;
   color: rgb(28, 24, 24);
+}
+.box-verify{
+  background: white;
+  color: black;
+  width: 25rem;
+  height: 5rem;
+  display: flex;
+ justify-content: center;
+  margin-left: 2rem;
+  margin-top: 2rem;
 }
