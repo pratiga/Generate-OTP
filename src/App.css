@@ -10,7 +10,8 @@
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
-  }
+    -webkit-animation: App-logo-spin infinite 20s linear;
+}
 }
 
 .App-header {
@@ -26,7 +27,7 @@
 
 input{
   padding: 1.5rem 4rem;
-  margin: 2rem 0rem 2rem 2rem;
+  margin: 3rem 0rem 2rem 2rem;
 }
 button{
   padding: 1.5rem 3rem;
@@ -37,7 +38,7 @@ button{
   border-bottom-right-radius: 10px;
 }
 textarea{
-  padding: 3rem;
+  padding: 0.5rem 4.2rem;
   margin: 2rem;
 }
 button:hover{
