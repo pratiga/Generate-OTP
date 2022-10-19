@@ -9,7 +9,8 @@ const otp = () => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [ttl, setTtl] = useState("");
   const [otp, setOtp] = useState("");
-  const [verify, setVerify] = useState("");
+  const [otp_set, setOtp_set] = useState("");
+  const [otp_verify, setOtp_verify] = useState("");
 
   const handleCopyText = (e) => {
     setOtp(e.target.value);
@@ -29,7 +30,7 @@ const otp = () => {
       })
       .then((res) => {
         // console.log(res.data);
-        setTtl(res.data);
+        // setTtl(res.data);
         setOtp(res.data);
       })
       .catch((err) => {
@@ -40,12 +41,10 @@ const otp = () => {
   let handleOtp = (e) => {
     e.preventDefault();
     axios
-      .post("https://otp-jwt-api.herokuapp.com/api/otp/verify", {
-        otp: verify,
-      })
+      .get("https://otp-jwt-api.herokuapp.com/api/otp/verify/" + otp_set)
       .then((res) => {
         console.log(res.data);
-        setVerify(res.data);
+        setOtp_verify(res.data);
       })
       .catch((err) => {
         console.log(err.message);
@@ -64,9 +63,9 @@ const otp = () => {
               <span>TTL</span>
               <input
                 type="number"
-                placeholder=""
                 onChange={(e) => setTtl(e.target.value)}
                 value={ttl}
+                placeholder={ttl}
               />
               <button className="btn from-left">Generate</button>
             </form>
@@ -76,8 +75,9 @@ const otp = () => {
               <span>OTP</span>
               <input
                 type="text"
-                value={verify}
-                onChange={(e) => setVerify(e.target.value)}
+                value={otp_set}
+                onChange={(e) => setOtp_set(e.target.value)}
+                placeholder={otp_set}
               />
               <button className="btn from-left">Verify</button>
             </form>
@@ -100,7 +100,7 @@ const otp = () => {
             </span>
           </form>
           <div className="box-verify">
-            <p>{verify.data}data</p>
+            <p>{otp_verify}</p>
           </div>
         </div>
       </div>
